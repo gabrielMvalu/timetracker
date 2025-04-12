@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.log
+*.sqlite3
+.env
+.DS_Store
+
+# Streamlit
+.streamlit/secrets.toml
+.streamlit/config.toml
+
+# VSCode & sistem
+.vscode/
+*.swp
+*.swo
+.idea/
+
+# Firebase
+firebase.json
+.firebaserc
+firebase-debug.log
+serviceAccountKey.json
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
