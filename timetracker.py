@@ -34,9 +34,10 @@ if not st.session_state.logged_in:
         if user and user["password"] == password:
             st.session_state.logged_in = True
             st.session_state.user = {"email": email, "role": user["role"]}
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.error("Invalid credentials")
+
 else:
     user = st.session_state.user
     st.set_page_config(page_title="Time Tracker Dashboard", layout="wide")
@@ -44,7 +45,7 @@ else:
     st.sidebar.write(f"Logged in as {user['email']}")
     if st.sidebar.button("Logout"):
         st.session_state.clear()
-        st.experimental_rerun()
+        st.rerun()
 
     if user['role'] == 'admin':
         menu = st.sidebar.radio("Navigation", ["Employees", "Time Tracking", "Reports"])
@@ -64,7 +65,7 @@ else:
                 if st.button("Add Employee"):
                     EMPLOYEES.append({"name": new_name, "phone": new_phone})
                     st.success("Employee added.")
-                    st.experimental_rerun()
+                    st.rerun()
 
         elif menu == "Time Tracking":
             st.title("Time Tracking")
