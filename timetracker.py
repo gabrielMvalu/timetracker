@@ -106,13 +106,36 @@ else:
 
         elif menu == "Reports":
             st.title("Reports")
-            st.markdown("#### Weekly")
-            st.dataframe({
-                "Date": ["2024-03-18", "2024-03-18", "2024-03-17"],
-                "Employee": ["Emma Johnson", "Emma Johnson", "Emma Johnson"],
-                "Hours": [8, 6, 10],
-                "Location": ["Location A", "Location A", "Total"]
-            }, use_container_width=True)
+            st.markdown("#### Filter Reports")
+
+            employee_names = [e["name"] for e in EMPLOYEES]
+            selected_employee = st.selectbox("Filter by Employee", ["All"] + employee_names)
+            selected_location = st.selectbox("Filter by Location", ["All"] + LOCATIONS)
+
+            # Dummy data
+            report_data = [
+                {"date": "2024-03-18", "employee": "Emma Johnson", "hours": 8, "location": "Location A"},
+                {"date": "2024-03-18", "employee": "Emma Johnson", "hours": 6, "location": "Location A"},
+                {"date": "2024-03-17", "employee": "Emma Johnson", "hours": 10, "location": "Location B"},
+                {"date": "2024-03-17", "employee": "Michael Smith", "hours": 7, "location": "Location C"},
+            ]
+
+            if selected_employee != "All":
+                report_data = [r for r in report_data if r["employee"] == selected_employee]
+
+            if selected_location != "All":
+                report_data = [r for r in report_data if r["location"] == selected_location]
+
+            if report_data:
+                df = {
+                    "Date": [r["date"] for r in report_data],
+                    "Employee": [r["employee"] for r in report_data],
+                    "Hours": [r["hours"] for r in report_data],
+                    "Location": [r["location"] for r in report_data]
+                }
+                st.dataframe(df, use_container_width=True)
+            else:
+                st.info("No data available for selected filters.")
 
     elif user['role'] == 'employee':
         st.title("Employee Dashboard")
